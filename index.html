@@ -622,6 +622,135 @@ h1 em {
 .ep-card .loop-footer em { color: var(--ep); }
 .co-card .loop-footer em { color: var(--co); }
 
+/* ── WEIGHTS COLLAPSIBLE ── */
+.weights-panel {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  overflow: hidden;
+  background: var(--bg2);
+}
+
+.weights-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .85rem 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text3);
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-align: left;
+  transition: background .15s, color .15s;
+}
+
+.weights-trigger:hover {
+  background: var(--bg3);
+  color: var(--text2);
+}
+
+.weights-trigger .wt-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--bayes);
+  opacity: .6;
+  flex-shrink: 0;
+  transition: opacity .15s;
+}
+
+.weights-trigger:hover .wt-dot,
+.weights-panel.open .weights-trigger .wt-dot { opacity: 1; }
+
+.weights-trigger .wt-label { flex: 1; }
+
+.weights-trigger .wt-chevron {
+  font-size: 10px;
+  transition: transform .25s ease;
+  opacity: .4;
+}
+
+.weights-panel.open .wt-chevron { transform: rotate(180deg); opacity: .7; }
+.weights-panel.open .weights-trigger { color: var(--bayes); }
+
+.weights-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height .35s cubic-bezier(.4,0,.2,1);
+}
+
+.weights-panel.open .weights-body { max-height: 800px; }
+
+.weights-inner {
+  padding: 0 1.1rem 1.1rem;
+  border-top: 1px solid var(--border);
+}
+
+.weights-intro {
+  font-size: 13px;
+  color: var(--text2);
+  line-height: 1.75;
+  padding: .9rem 0 .85rem;
+  font-weight: 300;
+}
+
+.weights-intro strong { color: var(--bayes); font-weight: 600; }
+
+.weights-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: .6rem;
+  margin-bottom: .85rem;
+}
+
+.w-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: .7rem .85rem;
+}
+
+.w-card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--bayes);
+  opacity: .6;
+  margin-bottom: 3px;
+  letter-spacing: .1em;
+}
+
+.w-card-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.w-card-body {
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.55;
+}
+
+.w-card-body strong { color: var(--text); font-weight: 500; }
+
+.weights-punchline {
+  padding: .75rem .9rem;
+  background: var(--bayes-bg);
+  border: 1px solid rgba(167,139,250,0.18);
+  border-radius: var(--r-sm);
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.7;
+}
+
+.weights-punchline strong { color: var(--bayes); font-weight: 600; }
+
 /* ── KEYFRAMES ── */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(8px); }
@@ -732,6 +861,61 @@ h1 em {
       </div>
     </div>
 
+  </div>
+
+  <!-- Weights / Moat collapsible -->
+  <div class="weights-panel" id="weights-panel">
+    <button class="weights-trigger" onclick="toggleWeights()">
+      <span class="wt-dot"></span>
+      <span class="wt-label">The matrix is public — so what are we actually protecting?</span>
+      <span class="wt-chevron">&#9662;</span>
+    </button>
+    <div class="weights-body">
+      <div class="weights-inner">
+        <div class="weights-intro">
+          Bias and weights are the <strong>compressed eigenmode</strong> of the training data — they are safe to publish.
+          The rows that produced them are gone. So why does the moat hold?
+          Three reasons, in order of honesty.
+        </div>
+        <div class="weights-grid">
+          <div class="w-card">
+            <div class="w-card-num">01 · REAL</div>
+            <div class="w-card-title">The training data was expensive</div>
+            <div class="w-card-body">
+              The weights are cheap to copy. The <strong>corpus that shaped them</strong> — licensed, scraped, curated at billions in compute and legal cost — is the actual asset.
+              Publishing weights gives away the eigenmode without surrendering the eigenspace.
+              Meta knew this: Llama ships without the training data.
+            </div>
+          </div>
+          <div class="w-card">
+            <div class="w-card-num">02 · REAL</div>
+            <div class="w-card-title">Alignment is a thin layer — fine-tuning strips it</div>
+            <div class="w-card-body">
+              The 65 GB Llama download <strong>is</strong> the attack surface.
+              Base capability travels in the weights; RLHF alignment is a shallow residual on top.
+              Fine-tune for a few hours and the refusals are gone.
+              Publishing weights = publishing capability with no guarantee the safety layer travels.
+            </div>
+          </div>
+          <div class="w-card">
+            <div class="w-card-num">03 · MARGINAL</div>
+            <div class="w-card-title">Membership inference from weights</div>
+            <div class="w-card-body">
+              You <strong>cannot reconstruct</strong> a training record from weights — but you can sometimes <em>confirm</em> a specific record was present.
+              For models trained on medical or legal data, that confirmation is itself a privacy violation.
+              The weights carry a shadow of the data, not the data itself.
+            </div>
+          </div>
+        </div>
+        <div class="weights-punchline">
+          <strong>The real governance surface is fine-tuning, not weights.</strong>
+          Closed weights is a leaky abstraction — the eigenmode leaks through API outputs anyway, and
+          distillation lets anyone approximate it cheaply. The question that matters:
+          <strong>who controls the update?</strong> Who gets to fine-tune, on what data, toward what objective?
+          That is the S-layer problem. The moat was never at V.
+        </div>
+      </div>
+    </div>
   </div>
 
 </div><!-- /wrap -->
@@ -984,6 +1168,10 @@ function render() {
   buildBridge();
   buildDetail();
   buildChains();
+}
+
+function toggleWeights() {
+  document.getElementById('weights-panel').classList.toggle('open');
 }
 
 render();
