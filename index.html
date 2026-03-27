@@ -5,9 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Universal Code of Everything</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-
-  <title>Ukubona LLC - Health Tech for Customized Care</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
   <meta name="description" content="Ukubona builds digital twins for customized care.">
   <link rel="canonical" href="https://ukubona-llc.github.io/">
   <meta name="robots" content="index,follow">
@@ -35,644 +33,957 @@
   <link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-light.png" as="image">
   <link rel="preload" href="https://abikesa.github.io/logos/assets/ukubona-dark.png" as="image">
 <style>
-  :root {
-    --bg:           #0a0a0f;
-    --bg2:          #111118;
-    --bg3:          #18181f;
-    --border:       #2a2a38;
-    --border2:      #1e1e2a;
-    --text:         #e8e8f0;
-    --text2:        #a0a0b8;
-    --text3:        #5a5a72;
-    --accent:       #7b6cff;
-    --accent-bg:    #1a1730;
-    --accent-text:  #b8b0ff;
-    --glow:         rgba(123,108,255,0.15);
-    --accent2:      #ff6c8a;
-    --accent2-bg:   #2a1020;
-    --accent2-text: #ffb0c0;
-    --glow2:        rgba(255,108,138,0.12);
-    --radius:       12px;
-    --radius-sm:    7px;
-  }
+:root {
+  --bg:           #080b10;
+  --bg2:          #0e1219;
+  --bg3:          #141923;
+  --bg4:          #1a2030;
+  --border:       #1e2840;
+  --border2:      #253050;
+  --text:         #d4dbe8;
+  --text2:        #8a96a8;
+  --text3:        #4a5568;
+  --ep:           #4fc3f7;   /* epistemic — ice blue  */
+  --ep-bg:        #071a28;
+  --ep-dim:       rgba(79,195,247,0.12);
+  --co:           #f06292;   /* cognitive  — rose     */
+  --co-bg:        #210d14;
+  --co-dim:       rgba(240,98,146,0.12);
+  --wall:         #f59e0b;   /* governance — amber    */
+  --wall-bg:      #1c1200;
+  --wall-dim:     rgba(245,158,11,0.1);
+  --bayes:        #a78bfa;   /* bayesian   — violet   */
+  --bayes-bg:     #160f2a;
+  --r:            10px;
+  --r-sm:         6px;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Syne', sans-serif;
-    min-height: 100vh;
-    padding: 3rem 2rem 4rem;
-    max-width: 880px;
-    margin: 0 auto;
-    position: relative;
-    overflow-x: hidden;
-  }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding: 2.5rem 1.75rem 4rem;
+  max-width: 960px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
 
-  body::before {
-    content: '';
-    position: fixed;
-    top: -200px; left: 50%;
-    transform: translateX(-50%);
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, rgba(123,108,255,0.06) 0%, transparent 70%);
-    pointer-events: none; z-index: 0;
-  }
+/* Noise overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity: .025;
+  pointer-events: none;
+  z-index: 9999;
+}
 
-  .wrap { position: relative; z-index: 1; }
+/* ── HEADER ── */
+.header { margin-bottom: 2.75rem; }
 
-  /* ── Header ── */
-  .header { text-align: center; margin-bottom: 2.5rem; }
-  .eyebrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; letter-spacing: .2em;
-    text-transform: uppercase; color: var(--accent);
-    margin-bottom: .75rem;
-  }
-  .main-title {
-    font-size: clamp(22px, 4vw, 30px);
-    font-weight: 800; letter-spacing: -.02em; line-height: 1.1;
-    background: linear-gradient(135deg, #e8e8f0 0%, #a0a0c8 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+.header-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 1rem;
+  flex-wrap: wrap;
+}
 
-  /* ── Dual pipeline container ── */
-  .dual-pipeline {
-    position: relative;
-    margin-bottom: 2.5rem;
-  }
+.title-block {}
 
-  /* Row labels */
-  .row-wrap {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 0;
-    align-items: center;
-    margin-bottom: .5rem;
-  }
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ep);
+  margin-bottom: .6rem; opacity: .8;
+}
 
-  .row-label-side {
-    font-family: 'Space Mono', monospace;
-    font-size: 8.5px;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    color: var(--text3);
-    text-align: center;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(24px, 4vw, 38px);
+  font-weight: 400; line-height: 1.05;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
 
-  .row-label-side.top  { color: var(--accent-text);  }
-  .row-label-side.bot  { color: var(--accent2-text); }
+h1 em {
+  font-style: italic;
+  color: var(--ep);
+}
 
-  /* The pipeline grids */
-  .pipeline {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 0;
-    position: relative;
-  }
+.legend {
+  display: flex; flex-direction: column;
+  gap: 6px; align-items: flex-end;
+  padding-top: 4px;
+}
 
-  /* Connector */
-  .stage:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 28px;
-    left: calc(50% + 28px);
-    width: calc(100% - 56px);
-    height: 1px;
-    background: linear-gradient(90deg, var(--border), var(--border2));
-    z-index: 0;
-  }
+.legend-item {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .1em;
+  text-transform: uppercase;
+}
 
-  .stage.active:not(:last-child)::after {
-    background: linear-gradient(90deg, var(--accent), var(--border));
-    opacity: .5;
-  }
+.legend-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  flex-shrink: 0;
+}
 
-  .pipeline.cognitive .stage.active:not(:last-child)::after {
-    background: linear-gradient(90deg, var(--accent2), var(--border));
-    opacity: .5;
-  }
+.legend-item span { color: var(--text3); }
 
-  /* Bridge arrows between rows */
-  .bridge {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    margin: 0 0 0 72px;
-    margin-bottom: .25rem;
-  }
+/* ── STAGE HEADER LABELS ── */
+.stage-headers {
+  display: grid;
+  grid-template-columns: 20px repeat(5, 1fr);
+  gap: 0;
+  margin-bottom: .35rem;
+  padding-left: 0;
+}
 
-  .bridge-arrow {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1px;
-  }
+.sh-spacer {}
 
-  .bridge-arrow .line {
-    width: 1px;
-    height: 12px;
-    background: linear-gradient(180deg, var(--border), var(--border2));
-    opacity: .5;
-  }
+.sh {
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 0 4px;
+}
 
-  .bridge-arrow .chevron {
-    font-size: 8px;
-    color: var(--text3);
-    line-height: 1;
-  }
+/* ── DUAL PIPELINE ── */
+.dual-pipeline {
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
 
-  /* Nodes */
-  .stage {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    padding-bottom: .25rem;
-  }
+.pipeline-row {
+  display: grid;
+  grid-template-columns: 20px repeat(5, 1fr);
+  align-items: center;
+  position: relative;
+}
 
-  .stage-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 8px;
-    color: var(--text3);
-    margin-bottom: 4px;
-    opacity: .5;
-    transition: all .2s;
-  }
+.row-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; letter-spacing: .14em;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  text-align: center;
+  height: 64px;
+  display: flex; align-items: center; justify-content: center;
+}
 
-  .node {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    border: 1.5px solid var(--border);
-    background: var(--bg2);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; font-weight: 700;
-    line-height: 1.35; text-align: center;
-    color: var(--text3);
-    position: relative; z-index: 1;
-    transition: all .2s ease;
-    padding: 4px;
-  }
+.row-tag.ep { color: var(--ep); opacity: .7; }
+.row-tag.co { color: var(--co); opacity: .7; }
 
-  /* Epistemic row active = purple */
-  .pipeline.epistemic .stage:hover .node {
-    border-color: rgba(123,108,255,.3);
-    color: var(--text2); background: var(--bg3);
-    box-shadow: 0 0 0 4px rgba(123,108,255,0.07);
-  }
+/* Connector track */
+.pipeline-track {
+  grid-column: 2 / 7;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+}
 
-  .pipeline.epistemic .stage.active .node {
-    border-color: var(--accent);
-    background: var(--accent-bg);
-    color: var(--accent-text);
-    box-shadow: 0 0 0 5px var(--glow), 0 0 20px var(--glow);
-  }
+/* Horizontal line behind nodes */
+.pipeline-track::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 10%;
+  width: 80%; height: 1px;
+  transform: translateY(-50%);
+  background: var(--border);
+  z-index: 0;
+}
 
-  .pipeline.epistemic .stage.active .stage-num { opacity: 1; color: var(--accent); }
+/* Bridge between rows */
+.bridge-row {
+  display: grid;
+  grid-template-columns: 20px repeat(5, 1fr);
+  height: 28px;
+  align-items: center;
+}
 
-  /* Cognitive row active = rose */
-  .pipeline.cognitive .stage:hover .node {
-    border-color: rgba(255,108,138,.3);
-    color: var(--text2); background: var(--bg3);
-    box-shadow: 0 0 0 4px var(--glow2);
-  }
+.bridge-track {
+  grid-column: 2 / 7;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
 
-  .pipeline.cognitive .stage.active .node {
-    border-color: var(--accent2);
-    background: var(--accent2-bg);
-    color: var(--accent2-text);
-    box-shadow: 0 0 0 5px var(--glow2), 0 0 20px var(--glow2);
-  }
+.bridge-col {
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 2px; height: 28px;
+}
 
-  .pipeline.cognitive .stage.active .stage-num { opacity: 1; color: var(--accent2); }
+.bridge-col.wall-col .bridge-line { background: var(--wall); opacity: .5; }
+.bridge-col.wall-col .bridge-chevron { color: var(--wall); opacity: .6; }
 
-  .stage-tag {
-    margin-top: 8px;
-    font-family: 'Space Mono', monospace;
-    font-size: 8.5px;
-    color: var(--text3);
-    text-align: center;
-    letter-spacing: .04em;
-    transition: color .2s;
-    line-height: 1.4;
-    max-width: 72px;
-  }
+.bridge-line {
+  width: 1px; height: 8px;
+  background: var(--border);
+  opacity: .4;
+}
 
-  .pipeline.epistemic .stage.active .stage-tag  { color: var(--accent-text); }
-  .pipeline.cognitive  .stage.active .stage-tag  { color: var(--accent2-text); }
+.bridge-chevron {
+  font-size: 8px; color: var(--text3);
+  opacity: .35; line-height: 1;
+  font-family: 'DM Mono', monospace;
+}
 
-  /* ── Divider ── */
-  .divider { height: 1px; background: var(--border2); margin: 0 0 2rem; }
+/* Stage nodes */
+.stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  padding: 6px 2px;
+}
 
-  /* ── Detail Card ── */
-  .detail {
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 1.75rem;
-    min-height: 260px;
-    position: relative; overflow: hidden;
-    animation: fadeUp .25s ease;
-  }
+.node-wrap {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
 
-  .detail::before {
-    content: '';
-    position: absolute; top: 0; left: 0;
-    width: 140px; height: 140px;
-    background: radial-gradient(circle at top left, var(--card-glow, var(--glow)), transparent 70%);
-    pointer-events: none;
-  }
+.node {
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  background: var(--bg2);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px; font-weight: 500;
+  line-height: 1.4; text-align: center;
+  color: var(--text3);
+  position: relative; z-index: 1;
+  transition: all .18s ease;
+  padding: 5px;
+}
 
-  .detail.cognitive-card { --card-glow: var(--glow2); }
+/* Wall indicator on memory node */
+.node-wall-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--wall);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity .2s;
+  box-shadow: 0 0 8px rgba(245,158,11,0.4);
+}
 
-  .detail-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; flex-wrap: wrap; }
+.stage.wall .node-wall-badge { opacity: 1; }
+.stage.wall .node {
+  border-color: var(--wall) !important;
+  box-shadow: 0 0 0 3px rgba(245,158,11,0.1) !important;
+}
 
-  .detail-title { font-size: 17px; font-weight: 700; letter-spacing: -.02em; }
+/* Epistemic hover/active */
+.ep-track .stage:hover .node {
+  border-color: rgba(79,195,247,.4);
+  color: var(--text2); background: var(--bg3);
+}
 
-  .detail-tag {
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; font-weight: 700;
-    padding: 3px 9px; border-radius: 20px;
-    letter-spacing: .08em;
-  }
+.ep-track .stage.active .node {
+  border-color: var(--ep);
+  background: var(--ep-bg);
+  color: var(--ep);
+  box-shadow: 0 0 0 4px var(--ep-dim), 0 0 18px var(--ep-dim);
+}
 
-  .tag-epistemic {
-    background: var(--accent-bg); color: var(--accent-text);
-    border: 1px solid rgba(123,108,255,0.2);
-  }
+/* Cognitive hover/active */
+.co-track .stage:hover .node {
+  border-color: rgba(240,98,146,.4);
+  color: var(--text2); background: var(--bg3);
+}
 
-  .tag-cognitive {
-    background: var(--accent2-bg); color: var(--accent2-text);
-    border: 1px solid rgba(255,108,138,0.2);
-  }
+.co-track .stage.active .node {
+  border-color: var(--co);
+  background: var(--co-bg);
+  color: var(--co);
+  box-shadow: 0 0 0 4px var(--co-dim), 0 0 18px var(--co-dim);
+}
 
-  .detail-body {
-    font-size: 13.5px; color: var(--text2);
-    line-height: 1.75; margin-bottom: 1.25rem;
-  }
+.stage-tag {
+  margin-top: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 7.5px; letter-spacing: .06em;
+  color: var(--text3); text-align: center;
+  line-height: 1.4; max-width: 70px;
+  transition: color .18s;
+}
 
-  /* 3-col grid for meta */
-  .meta-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: .65rem;
-    margin-bottom: 1.25rem;
-  }
+.ep-track .stage.active .stage-tag { color: var(--ep); opacity: .8; }
+.co-track .stage.active .stage-tag { color: var(--co); opacity: .8; }
 
-  .meta-card {
-    background: var(--bg3);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius-sm);
-    padding: .65rem .85rem;
-  }
+/* ── GOVERNANCE WALL BANNER ── */
+.wall-banner {
+  background: var(--wall-bg);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--r);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1rem;
+}
 
-  .meta-label {
-    font-family: 'Space Mono', monospace;
-    font-size: 8.5px; color: var(--text3);
-    text-transform: uppercase; letter-spacing: .12em;
-    margin-bottom: 4px;
-  }
+.wall-icon {
+  font-size: 20px;
+  line-height: 1;
+}
 
-  .meta-value { font-size: 12.5px; color: var(--text); line-height: 1.4; font-weight: 500; }
+.wall-text {}
 
-  /* Bayesian + cognitive callouts */
-  .callout-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: .75rem;
-  }
+.wall-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--wall);
+  margin-bottom: 4px;
+}
 
-  .callout {
-    padding: .8rem 1rem;
-    border-left: 2px solid;
-    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    font-size: 12px; color: var(--text2); line-height: 1.65;
-  }
+.wall-desc {
+  font-size: 12.5px; color: var(--text2); line-height: 1.6;
+}
 
-  .callout.bayesian {
-    border-color: var(--accent);
-    background: var(--accent-bg);
-  }
+.wall-desc strong { color: var(--wall); font-weight: 600; }
 
-  .callout.cognitive {
-    border-color: var(--accent2);
-    background: var(--accent2-bg);
-  }
+.wall-locks {
+  display: flex; flex-direction: column; gap: 4px;
+  align-items: flex-end;
+}
 
-  .callout strong { font-weight: 700; }
-  .callout.bayesian strong  { color: var(--accent-text); }
-  .callout.cognitive strong { color: var(--accent2-text); }
+.lock-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px; letter-spacing: .08em;
+  padding: 2px 8px; border-radius: 12px;
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.2);
+  color: rgba(245,158,11,0.7);
+  white-space: nowrap;
+}
 
-  /* ── Loop Note ── */
-  .loop-section {
-    margin-top: 2.5rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-  }
+/* ── DIVIDER ── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 0 1.75rem;
+  opacity: .5;
+}
 
-  .loop-card {
-    background: var(--bg2);
-    border: 1px solid var(--border2);
-    border-radius: var(--radius);
-    padding: 1.25rem 1.25rem 1rem;
-  }
+/* ── DETAIL CARD ── */
+.detail {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.75rem;
+  min-height: 280px;
+  position: relative; overflow: hidden;
+  animation: fadeUp .2s ease;
+}
 
-  .loop-card-title {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; letter-spacing: .15em;
-    text-transform: uppercase;
-    margin-bottom: .85rem;
-  }
+.detail-glow {
+  position: absolute; top: 0; left: 0;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: background .3s;
+}
 
-  .loop-card-title.epistemic { color: var(--accent-text); }
-  .loop-card-title.cognitive { color: var(--accent2-text); }
+.detail-inner { position: relative; z-index: 1; }
 
-  .loop-chain {
-    display: flex; flex-direction: column; gap: 3px;
-    font-family: 'Space Mono', monospace;
-    font-size: 11px;
-  }
+.detail-header {
+  display: flex; align-items: center;
+  gap: 8px; margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
 
-  .loop-step {
-    display: flex; align-items: center; gap: 8px;
-    color: var(--text3);
-  }
+.detail-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 20px; font-weight: 400;
+  letter-spacing: -.01em;
+  margin-right: 4px;
+}
 
-  .loop-step .num {
-    font-size: 9px; width: 16px; text-align: right;
-    opacity: .5; flex-shrink: 0;
-  }
+.tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; font-weight: 500;
+  padding: 2px 8px; border-radius: 20px;
+  letter-spacing: .1em; text-transform: uppercase;
+}
 
-  .loop-step .lbl { color: var(--text2); }
-  .loop-step .sub { font-size: 9px; color: var(--text3); }
+.tag.ep  { background: var(--ep-bg);    color: var(--ep);   border: 1px solid rgba(79,195,247,.2); }
+.tag.co  { background: var(--co-bg);    color: var(--co);   border: 1px solid rgba(240,98,146,.2); }
+.tag.wall { background: var(--wall-bg); color: var(--wall); border: 1px solid rgba(245,158,11,.25); }
 
-  .loop-arrow {
-    font-family: 'Space Mono', monospace;
-    font-size: 9px; color: var(--text3);
-    padding-left: 24px; opacity: .4;
-  }
+.detail-body {
+  font-size: 13.5px; color: var(--text2);
+  line-height: 1.8; margin-bottom: 1.25rem;
+  font-weight: 300;
+}
 
-  .loop-feedback {
-    margin-top: .85rem;
-    font-family: 'Space Mono', monospace;
-    font-size: 10px; color: var(--text3);
-    line-height: 1.6;
-    border-top: 1px solid var(--border2);
-    padding-top: .75rem;
-  }
+/* Meta strip */
+.meta-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: .6rem;
+  margin-bottom: 1.25rem;
+}
 
-  .loop-feedback em { font-style: normal; }
-  .loop-feedback.e em { color: var(--accent-text); }
-  .loop-feedback.c em { color: var(--accent2-text); }
+.meta-card {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: .6rem .8rem;
+}
 
-  /* ── Animate ── */
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(8px); }
-    to   { opacity:1; transform:translateY(0);   }
-  }
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px; color: var(--text3);
+  text-transform: uppercase; letter-spacing: .14em;
+  margin-bottom: 3px;
+}
+
+.meta-value {
+  font-size: 12.5px; color: var(--text);
+  line-height: 1.45; font-weight: 500;
+}
+
+/* Two callouts */
+.callout-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .75rem;
+}
+
+.callout {
+  padding: .8rem 1rem;
+  border-left: 2px solid;
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  font-size: 12px; color: var(--text2); line-height: 1.7;
+}
+
+.callout.bayesian { border-color: var(--bayes); background: var(--bayes-bg); }
+.callout.cog      { border-color: var(--co);    background: var(--co-bg);    }
+
+.callout strong { font-weight: 600; }
+.callout.bayesian strong { color: var(--bayes); }
+.callout.cog      strong { color: var(--co);    }
+
+/* Wall callout (shown only on memory stage) */
+.wall-callout {
+  margin-top: .75rem;
+  padding: 1rem 1.1rem;
+  background: var(--wall-bg);
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--r-sm);
+  font-size: 12.5px; color: var(--text2); line-height: 1.75;
+}
+
+.wall-callout-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .15em;
+  text-transform: uppercase; color: var(--wall);
+  margin-bottom: .5rem;
+}
+
+.wall-callout strong { color: var(--wall); font-weight: 600; }
+
+.wall-solutions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5rem;
+  margin-top: .75rem;
+}
+
+.solution-chip {
+  background: rgba(245,158,11,0.07);
+  border: 1px solid rgba(245,158,11,0.18);
+  border-radius: var(--r-sm);
+  padding: .5rem .7rem;
+}
+
+.chip-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--wall);
+  letter-spacing: .08em; margin-bottom: 3px;
+}
+
+.chip-body { font-size: 11.5px; color: var(--text2); line-height: 1.5; }
+
+/* ── LOOP SECTION ── */
+.loop-section {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.loop-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 1.25rem;
+  position: relative; overflow: hidden;
+}
+
+.loop-card::before {
+  content: '';
+  position: absolute; top: 0; right: 0;
+  width: 80px; height: 80px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.loop-card.ep-card::before { background: radial-gradient(circle at top right, var(--ep-dim), transparent 70%); }
+.loop-card.co-card::before { background: radial-gradient(circle at top right, var(--co-dim), transparent 70%); }
+
+.loop-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.loop-title.ep { color: var(--ep); }
+.loop-title.co { color: var(--co); }
+
+.chain {
+  display: flex; flex-direction: column; gap: 0;
+  position: relative;
+}
+
+.chain-step {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 6px;
+  align-items: flex-start;
+  padding: 4px 0;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background .15s;
+}
+
+.chain-step:hover { background: rgba(255,255,255,.03); }
+.chain-step.active-step .chain-label { color: var(--text); }
+
+.chain-key {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; text-align: right;
+  line-height: 1.6; padding-top: 1px;
+}
+
+.ep .chain-key { color: var(--ep); opacity: .7; }
+.co .chain-key { color: var(--co); opacity: .7; }
+
+.chain-label {
+  font-size: 12px; color: var(--text2); line-height: 1.5;
+}
+
+.chain-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--text3); display: block;
+}
+
+/* Wall marker in chain */
+.chain-step.wall-step .chain-label { color: var(--wall); opacity: .8; }
+.chain-step.wall-step .chain-key   { color: var(--wall); }
+
+.chain-arrow {
+  padding-left: 28px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--text3); opacity: .3;
+  line-height: 1;
+  margin: 1px 0;
+}
+
+.chain-arrow.wall-arrow { color: var(--wall); opacity: .4; }
+
+.loop-footer {
+  margin-top: .85rem;
+  padding-top: .75rem;
+  border-top: 1px solid var(--border);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--text3); line-height: 1.7;
+}
+
+.loop-footer em { font-style: normal; }
+.ep-card .loop-footer em { color: var(--ep); }
+.co-card .loop-footer em { color: var(--co); }
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
 </style>
 </head>
 <body>
+
 <div class="wrap">
 
+  <!-- Header -->
   <div class="header">
-    <div class="eyebrow">Epistemology · Cognition · Agency · Bayesian Inference</div>
-    <h1 class="main-title">The Universal Code of Everything</h1>
+    <div class="header-top">
+      <div class="title-block">
+        <div class="eyebrow">Epistemology · Cognition · Governance · Bayesian Inference</div>
+        <h1>The <em>Universal</em> Code<br>of Everything</h1>
+      </div>
+      <div class="legend">
+        <div class="legend-item"><div class="legend-dot" style="background:var(--ep)"></div><span>Epistemic chain</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--co)"></div><span>Cognitive / TMVES</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--wall)"></div><span>Governance wall</span></div>
+        <div class="legend-item"><div class="legend-dot" style="background:var(--bayes)"></div><span>Bayesian path-through</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Governance wall banner -->
+  <div class="wall-banner">
+    <div class="wall-icon">⚠</div>
+    <div class="wall-text">
+      <div class="wall-title">Governance Wall — Memory Layer (V / Data)</div>
+      <div class="wall-desc">
+        The pipeline breaks here — not because data doesn't exist, but because it's <strong>locked, feared, or siloed</strong>.
+        Bayesian inference is the only framework that can operate <strong>through</strong> the wall:
+        treating inaccessible data as a constrained prior rather than a missing input.
+      </div>
+    </div>
+    <div class="wall-locks">
+      <div class="lock-pill">GDPR · HIPAA</div>
+      <div class="lock-pill">Institutional fear</div>
+      <div class="lock-pill">Siloed data</div>
+      <div class="lock-pill">Purpose limitation</div>
+    </div>
+  </div>
+
+  <!-- Column headers -->
+  <div class="stage-headers">
+    <div class="sh-spacer"></div>
+    <div class="sh">01 · Prior</div>
+    <div class="sh">02 · Study</div>
+    <div class="sh">03 · Data ⚠</div>
+    <div class="sh">04 · Results</div>
+    <div class="sh">05 · Inference</div>
   </div>
 
   <!-- Dual pipeline -->
   <div class="dual-pipeline">
 
-    <!-- Row 1: Epistemic -->
-    <div class="row-wrap">
-      <div class="row-label-side top">Epistemic</div>
-      <div class="pipeline epistemic" id="epistemic-pipeline"></div>
+    <!-- Epistemic row -->
+    <div class="pipeline-row">
+      <div class="row-tag ep">Epistemic</div>
+      <div class="pipeline-track ep-track" id="ep-track"></div>
     </div>
 
     <!-- Bridge -->
-    <div style="display:grid; grid-template-columns: 72px 1fr;">
+    <div class="bridge-row">
       <div></div>
-      <div class="bridge" id="bridge"></div>
+      <div class="bridge-track" id="bridge"></div>
     </div>
 
-    <!-- Row 2: Cognitive -->
-    <div class="row-wrap">
-      <div class="row-label-side bot">Cognitive</div>
-      <div class="pipeline cognitive" id="cognitive-pipeline"></div>
+    <!-- Cognitive row -->
+    <div class="pipeline-row">
+      <div class="row-tag co">Cognitive</div>
+      <div class="pipeline-track co-track" id="co-track"></div>
     </div>
 
   </div>
 
   <div class="divider"></div>
 
-  <div class="detail" id="detail"></div>
+  <!-- Detail card -->
+  <div class="detail" id="detail">
+    <div class="detail-glow" id="detail-glow"></div>
+    <div class="detail-inner" id="detail-inner"></div>
+  </div>
 
-  <!-- Loop notes -->
+  <!-- Loop section -->
   <div class="loop-section">
 
-    <div class="loop-card">
-      <div class="loop-card-title epistemic">Bayesian Loop</div>
-      <div class="loop-chain">
-        <div class="loop-step"><span class="num">P(θ)</span><span class="lbl">Prior</span><span class="sub">→ hypothesis</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">P(D|θ)</span><span class="lbl">Likelihood</span><span class="sub">→ study design</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">D</span><span class="lbl">Data</span><span class="sub">→ observed vector</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">λ</span><span class="lbl">Eigenmode</span><span class="sub">→ invariant signal</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">P(θ|D)</span><span class="lbl">Posterior</span><span class="sub">→ decision scalar</span></div>
+    <div class="loop-card ep-card">
+      <div class="loop-title ep">Bayesian Loop</div>
+      <div class="chain" id="ep-chain"></div>
+      <div class="loop-footer ep">
+        Posteriors become the next <em>priors</em>.<br>
+        Missing data = <em>wide prior</em>, not a dead end.<br>
+        The wall constrains the posterior — it doesn't kill inference.
       </div>
-      <div class="loop-feedback e">Posteriors become the next <em>priors</em>.<br>The loop is explicit. The update is the point.</div>
     </div>
 
-    <div class="loop-card">
-      <div class="loop-card-title cognitive">Agency Loop (TMVES)</div>
-      <div class="loop-chain">
-        <div class="loop-step"><span class="num">T</span><span class="lbl">Sensing</span><span class="sub">→ raw signal</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">M</span><span class="lbl">Emotion</span><span class="sub">→ weighted signal</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">V</span><span class="lbl">Memory</span><span class="sub">→ U(s) state</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">E</span><span class="lbl">Intelligence</span><span class="sub">→ simulation</span></div>
-        <div class="loop-arrow">↓</div>
-        <div class="loop-step"><span class="num">S</span><span class="lbl">Deployment</span><span class="sub">→ action</span></div>
+    <div class="loop-card co-card">
+      <div class="loop-title co">Agency Loop (TMVES)</div>
+      <div class="chain" id="co-chain"></div>
+      <div class="loop-footer co">
+        Deployment changes reality → new <em>sensing</em>.<br>
+        <em>V</em> is the only layer that accumulates across loops.<br>
+        Governance failure at <em>V</em> corrupts everything downstream.
       </div>
-      <div class="loop-feedback c">Deployment changes reality → new <em>sensing</em>.<br>Governance lives here: who controls <em>S</em>?</div>
     </div>
 
   </div>
 
-</div>
+</div><!-- /wrap -->
 
 <script>
 const stages = [
   {
-    // epistemic
-    eShort: "Prior /\nHypothesis", eLabel: "Prior / Hypothesis",
-    eTag: "A priori", eSci: "Hypothesis", eMath: "Tensor",
-    eFiles: ".md → .py",
-    ePhysics: "State space — all possible configurations before observation",
-    eBayesian: "P(θ) — the prior. You write down what you believe before touching the data. Architecture + weight initialisation in ML. The only framework that makes assumptions legible.",
-    eDetail: "The full possibility space. Before a single measurement, you encode belief. In physics: the state space. In ML: the architecture + weight initialisation. In science: the hypothesis.",
-    // cognitive
-    cShort: "Sensing /\nInput", cLabel: "Sensing / Input",
-    cTag: "T · Interface",
-    cSci: "Perception", cStack: "APIs, IoT, logs",
-    cPhysics: "Transducer — converts physical signal to representation",
-    cDetail: "Raw input from the world. Sensors, logs, APIs, user actions. No meaning yet — just signal. This is the system's interface with reality. In TMVES: T layer.",
-    cCognitive: "Sensing has no valence — it is pure transduction. Emotion (the next stage) is what assigns weight. Without sensing, no loop can begin.",
+    idx: 0, isWall: false,
+    eShort:'Prior /\nHypothesis', eLabel:'Prior / Hypothesis', eTag:'A priori',
+    eSci:'Hypothesis', eMath:'Tensor', eFiles:'.md → .py',
+    ePhysics:'State space — all possible configurations before observation',
+    eBayes:'P(θ) — the prior. You commit to what you believe before touching data. The only framework that makes assumptions legible before measurement begins.',
+    eDetail:'The full possibility space. Before a single measurement, you encode belief. In physics: the state space. In ML: architecture + weight initialisation. In research: the hypothesis.',
+    cShort:'Sensing /\nInput', cLabel:'Sensing / Input', cTag:'T · Interface',
+    cSci:'Perception', cStack:'APIs · IoT · logs · telemetry',
+    cPhysics:'Transducer — converts physical signal to internal representation',
+    cCog:'Sensing has no valence — it is pure transduction. Without it no loop begins. Governance rarely touches this layer directly, but sensor choice determines everything.',
+    cDetail:'Raw input from the world — signals, logs, APIs, user actions. No meaning yet. This is the system&#39;s interface with reality. In TMVES: T layer. Governance here is about what is measured, not what is stored.',
   },
   {
-    eShort: "Study /\nPipeline", eLabel: "Study / Pipeline",
-    eTag: "Compressor", eSci: "Study design", eMath: "Matrix",
-    eFiles: ".ipynb → .html",
-    ePhysics: "Measurement operator — projects state space onto observables",
-    eBayesian: "P(data | θ) — the likelihood. Study design is a lossy compression matrix. Which variables? What intervals? From whom? Most replication failures live here.",
-    eDetail: "The measurement apparatus. Every design choice is lossy compression — which variables, how often, from whom. The matrix decides what information survives into the data vector.",
-    cShort: "Emotion /\nWeighting", cLabel: "Emotion / Signal Weighting",
-    cTag: "M · Valuation",
-    cSci: "Anomaly detection", cStack: "scoring, thresholds, loss fn",
-    cPhysics: "Attention filter — gates information by salience",
-    cDetail: "Importance assignment. Not feelings — anomaly detection, risk scores, attention weights. This is where signal becomes meaning. In TMVES: M layer.",
-    cCognitive: "Emotion is the biological equivalent of a loss function. It decides what matters before intelligence ever runs. A system with no emotion processes everything equally — which is the same as ignoring everything.",
+    idx: 1, isWall: false,
+    eShort:'Study /\nPipeline', eLabel:'Study / Pipeline', eTag:'Compressor',
+    eSci:'Study design', eMath:'Matrix', eFiles:'.ipynb → .html',
+    ePhysics:'Measurement operator — projects state space onto observables',
+    eBayes:'P(data|θ) — the likelihood. Study design is a lossy compression matrix. Which variables? What intervals? From whom? Most replication failures live here.',
+    eDetail:'The measurement apparatus. Every design choice is lossy compression. Which variables, how often, from whom. The matrix decides what information survives into the data vector.',
+    cShort:'Emotion /\nWeighting', cLabel:'Emotion / Signal Weighting', cTag:'M · Valuation',
+    cSci:'Anomaly detection', cStack:'scoring · thresholds · loss functions',
+    cPhysics:'Attention filter — gates information flow by salience',
+    cCog:'Emotion is the biological loss function. It decides what matters before intelligence runs. A system with no valuation layer processes everything equally — which is the same as ignoring everything.',
+    cDetail:'Importance assignment. Not feelings — anomaly detection, risk scores, attention weights. Where signal becomes meaning. In TMVES: M layer. Fear of data sharing is an M-layer phenomenon: a risk score assigned to disclosure.',
   },
   {
-    eShort: "Data /\nVector", eLabel: "Data / Vector",
-    eTag: "Observable", eSci: "Observed data", eMath: "Vector",
-    eFiles: ".js → API",
-    ePhysics: "Measurement outcome — single realisation from the distribution",
-    eBayesian: "The sufficient statistic — β₁, β₂, β₃… the list of bets placed before the matrix compressed everything. Not truth: a projection of truth.",
-    eDetail: "A list of parameter estimates. Not 'the truth' — a projection through your measurement matrix. The vector lives in the space your study design carved out of the full tensor.",
-    cShort: "Memory /\nState", cLabel: "Memory / State",
-    cTag: "V · Persistence",
-    cSci: "State U(s)", cStack: "SQL, NoSQL, vector stores",
-    cPhysics: "Phase space trajectory — the system's history in state space",
-    cDetail: "Persistence across time. History, state, trajectories. This is U(s) — the evolving state of the system. Without memory, each sensing event is independent and no learning occurs.",
-    cCognitive: "Memory is the only layer that accumulates. Sensing is instantaneous, emotion is reactive, intelligence is episodic — but memory carries the integral of all prior experience forward.",
+    idx: 2, isWall: true,
+    eShort:'Data /\nVector', eLabel:'Data / Vector', eTag:'Observable ⚠',
+    eSci:'Observed data', eMath:'Vector (constrained)', eFiles:'.db · vault · federated',
+    ePhysics:'Measurement outcome — projection of truth through the study matrix',
+    eBayes:'The sufficient statistic — but the wall makes it incomplete. Missing data isn&#39;t zero — it&#39;s a wide, uncertain prior. Differential privacy, federated learning, and synthetic data are architectures for navigating a constrained posterior.',
+    eDetail:'A list of parameter estimates — not truth, but a projection of truth. Here the pipeline meets the governance wall. Data exists but is locked, feared, or siloed. The Bayesian answer: treat inaccessible silos as V₂ — they contribute prior shape, not raw values.',
+    cShort:'Memory /\nState', cLabel:'Memory / State', cTag:'V · Persistence ⚠',
+    cSci:'U(s) — evolving state', cStack:'SQL · vector stores · federated nodes',
+    cPhysics:'Phase space trajectory — the system&#39;s history across time',
+    cCog:'Memory is the only accumulating layer. Governance failure here is permanent — corrupt V and you corrupt every future inference. The four locks (regulatory, fear, silos, purpose-limitation) are all V-layer problems, not E-layer problems.',
+    cDetail:'Persistence across time — the evolving state U(s). THIS IS WHERE YOUR WORKFLOW BREAKS. Data exists but can\'t flow freely: regulators block storage, institutions fear disclosure, silos prevent sharing, and purpose-limitation prevents use. This is not an engineering failure. It\'s an epistemological one.',
+    isWallNode: true,
   },
   {
-    eShort: "Results /\nEigenmode", eLabel: "Results / Eigenmode",
-    eTag: "Invariant", eSci: "Likelihood / Results", eMath: "Eigenmode",
-    eFiles: ".py backend",
-    ePhysics: "Normal mode — pattern persisting under symmetry transformations",
-    eBayesian: "P(θ | data) — the posterior. The eigenmode holds across persons, places, times. A fragile result is a vector pretending to be an eigenmode.",
-    eDetail: "The structure the universe returns after it's done with your assumptions. Swap the patients, the country, the decade — if the parameter holds, you've found something real. This is the test of replication.",
-    cShort: "Intelligence /\nDecision", cLabel: "Intelligence / Decision",
-    cTag: "E · Simulation",
-    cSci: "Prediction & optimisation", cStack: "ML models, simulations, rules",
-    cPhysics: "Hamiltonian — the function that generates system dynamics",
-    cDetail: "Decision-making. Prediction, optimisation, simulation. This is your digital twin thinking — it models the world, runs scenarios, and outputs a ranked set of actions.",
-    cCognitive: "Intelligence without memory is hallucination. Without emotion it is unconstrained search. Without sensing it operates on stale state. It is powerful only in concert with the full chain.",
+    idx: 3, isWall: false,
+    eShort:'Results /\nEigenmode', eLabel:'Results / Eigenmode', eTag:'Invariant',
+    eSci:'Likelihood / Results', eMath:'Eigenmode', eFiles:'.py backend',
+    ePhysics:'Normal mode — pattern persisting under symmetry transformations',
+    eBayes:'P(θ|data) — the posterior. The eigenmode holds across persons, places, times. A fragile finding is a vector pretending to be an eigenmode. With constrained data, eigenmodes are harder to find but more valuable when found.',
+    eDetail:'The structure reality returns after it\'s done with your assumptions. Swap the patients, the country, the decade — if the parameter holds, you\'ve found something real. Replication is the test. Governance friction at V makes this harder to achieve and more necessary to claim.',
+    cShort:'Intelligence /\nDecision', cLabel:'Intelligence / Decision', cTag:'E · Simulation',
+    cSci:'Prediction & optimisation', cStack:'ML models · simulations · rules engines',
+    cPhysics:'Hamiltonian — the function generating system dynamics',
+    cCog:'Intelligence without full memory is not broken — it\'s Bayesian. It operates on constrained posteriors from partial V, runs scenarios, and outputs ranked actions with wider uncertainty bands. That\'s not failure. That\'s honesty.',
+    cDetail:'Decision-making: prediction, optimisation, simulation. The digital twin thinking layer. When V is constrained by governance, E must run on a partial posterior — which widens confidence intervals but doesn\'t invalidate inference. Federated models run E without centralising V.',
   },
   {
-    eShort: "Inference /\nThreshold", eLabel: "Inference / Threshold",
-    eTag: "Decision", eSci: "Conclusion", eMath: "Scalar",
-    eFiles: ".wasm / deploy",
-    ePhysics: "Observable expectation value — the single number the experiment reports",
-    eBayesian: "The posterior predictive — one number you act on. p < 0.05 is a crude scalar. Bayes gives you the full distribution; you choose the cut. Physics becomes decision.",
-    eDetail: "The moment of commitment. All tensor richness, matrix compression, vector estimates, eigenmode invariance — collapsed to: yes or no, act or wait, publish or replicate.",
-    cShort: "Deployment /\nAction", cLabel: "Deployment / Action",
-    cTag: "S · Governance",
-    cSci: "Intervention", cStack: "APIs, dashboards, automation",
-    cPhysics: "Symmetry breaking — the act that selects one branch of possibility",
-    cDetail: "Changing the world. Decisions → actions → interventions. This is where the system closes the loop. Deployment creates new reality, which feeds back into sensing.",
-    cCognitive: "The only missing layer is governance: who controls deployment? Systems fail not at sensing or intelligence — but at who is permitted to act. S is the ethical surface of the whole architecture.",
-  }
+    idx: 4, isWall: false,
+    eShort:'Inference /\nThreshold', eLabel:'Inference / Threshold', eTag:'Decision',
+    eSci:'Conclusion', eMath:'Scalar', eFiles:'.wasm / deploy',
+    ePhysics:'Observable expectation value — the single number the experiment reports',
+    eBayes:'The posterior predictive — one number you act on. p < 0.05 is a crude scalar. Bayes gives the full distribution; you choose where to cut. With governance friction at V, your scalar carries wider uncertainty — which must be communicated.',
+    eDetail:'The moment of commitment. All tensor richness, matrix compression, vector estimates, eigenmode invariance — collapsed to: yes or no, act or wait, publish or replicate. Governance constraints widen the distribution you\'re collapsing. That uncertainty belongs in the decision.',
+    cShort:'Deployment /\nAction', cLabel:'Deployment / Action', cTag:'S · Governance',
+    cSci:'Intervention', cStack:'APIs · dashboards · automation',
+    cPhysics:'Symmetry breaking — the act that selects one branch of possibility',
+    cCog:'The missing layer: governance is not only a V problem. It reappears here as: who is permitted to deploy? Systems fail not at sensing or intelligence — but at who controls S. V and S are the two governance surfaces of the whole architecture.',
+    cDetail:'Changing the world. Decisions → actions → interventions. The loop closes here: deployment creates new reality, which feeds back into sensing. Governance at S is who controls the action. The four locks at V are ultimately about fear of what S will do with the data.',
+  },
 ];
 
-// active stage index and which row is 'primary' for the detail card
-let active = 0;
-let primaryRow = 'epistemic';
+const epChain = [
+  { key:'P(θ)', label:'Prior', sub:'hypothesis' },
+  { key:'P(D|θ)', label:'Likelihood', sub:'study design', wall: true },
+  { key:'D', label:'Data', sub:'observed vector — WALL HERE', wall: true },
+  { key:'λ', label:'Eigenmode', sub:'invariant signal' },
+  { key:'P(θ|D)', label:'Posterior', sub:'decision scalar' },
+];
 
-function buildPipeline(id, labelKey, tagKey, activeClass) {
+const coChain = [
+  { key:'T', label:'Sensing', sub:'raw signal' },
+  { key:'M', label:'Emotion', sub:'weighted signal' },
+  { key:'V', label:'Memory', sub:'U(s) state — WALL HERE', wall: true },
+  { key:'E', label:'Intelligence', sub:'simulation' },
+  { key:'S', label:'Deployment', sub:'action + governance' },
+];
+
+let active = 0;
+let primaryRow = 'ep';
+
+function buildTrack(id, shortKey, tagKey, cls) {
   const el = document.getElementById(id);
-  el.innerHTML = stages.map((s, i) => `
-    <div class="stage${i === active ? ' active' : ''}"
-         onclick="select(${i},'${activeClass}')">
-      <div class="stage-num">${String(i+1).padStart(2,'0')}</div>
-      <div class="node">${s[labelKey].replace('\n','<br>')}</div>
-      <div class="stage-tag">${s[tagKey]}</div>
-    </div>
-  `).join('');
+  el.innerHTML = stages.map((s,i) => {
+    const isActive = i === active;
+    const isWall = s.isWall;
+    return `
+      <div class="stage${isActive ? ' active' : ''}${isWall ? ' wall' : ''}"
+           onclick="select(${i},'${cls}')">
+        <div class="node-wrap">
+          <div class="node">${s[shortKey].replace(/\n/g,'<br>')}</div>
+          ${isWall ? '<div class="node-wall-badge">⚠</div>' : ''}
+        </div>
+        <div class="stage-tag">${s[tagKey]}</div>
+      </div>`;
+  }).join('');
 }
 
 function buildBridge() {
   const b = document.getElementById('bridge');
-  b.innerHTML = stages.map(() =>
-    `<div class="bridge-arrow"><div class="line"></div><div class="chevron">↓</div><div class="line"></div></div>`
+  b.innerHTML = stages.map((s,i) =>
+    `<div class="bridge-col${s.isWall ? ' wall-col' : ''}">
+       <div class="bridge-line"></div>
+       <div class="bridge-chevron">↕</div>
+       <div class="bridge-line"></div>
+     </div>`
   ).join('');
 }
 
 function buildDetail() {
   const s = stages[active];
-  const isEp = primaryRow === 'epistemic';
-  const d = document.getElementById('detail');
+  const isEp = primaryRow === 'ep';
 
-  d.className = isEp ? 'detail' : 'detail cognitive-card';
+  // Glow color
+  const glowColor = s.isWall
+    ? 'radial-gradient(circle at top left, rgba(245,158,11,0.08), transparent 60%)'
+    : isEp
+      ? 'radial-gradient(circle at top left, rgba(79,195,247,0.08), transparent 60%)'
+      : 'radial-gradient(circle at top left, rgba(240,98,146,0.08), transparent 60%)';
 
-  d.innerHTML = `
+  document.getElementById('detail-glow').style.background = glowColor;
+
+  const title   = isEp ? s.eLabel    : s.cLabel;
+  const tag     = isEp ? s.eTag      : s.cTag;
+  const detail  = isEp ? s.eDetail   : s.cDetail;
+  const sci     = isEp ? s.eSci      : s.cSci;
+  const techMath = isEp ? s.eMath    : s.cStack;
+  const physics = isEp ? s.ePhysics  : s.cPhysics;
+  const tagCls  = s.isWall ? 'wall' : (isEp ? 'ep' : 'co');
+  const altTag  = isEp ? s.cTag : s.eTag;
+  const altCls  = isEp ? 'co' : 'ep';
+
+  let wallBlock = '';
+  if (s.isWall) {
+    wallBlock = `
+      <div class="wall-callout">
+        <div class="wall-callout-title">⚠ Governance Wall — Where Your Workflow Breaks</div>
+        <p>The data exists. The problem is <strong>four simultaneous locks</strong>: regulatory prohibition (GDPR, HIPAA), institutional fear of disclosure, cross-institution siloing, and purpose-limitation preventing use for inference. These are not engineering problems — they are <strong>prior-updating problems</strong>. Each lock is a stakeholder with a strong prior that data = harm.</p>
+        <div class="wall-solutions">
+          <div class="solution-chip">
+            <div class="chip-title">Federated Learning</div>
+            <div class="chip-body">E runs on distributed V — no centralisation, no disclosure. Intelligence without memory aggregation.</div>
+          </div>
+          <div class="solution-chip">
+            <div class="chip-title">Differential Privacy</div>
+            <div class="chip-body">Adds calibrated noise so individual records can't be reverse-engineered. V is accessible but unidentifiable.</div>
+          </div>
+          <div class="solution-chip">
+            <div class="chip-title">Synthetic Data</div>
+            <div class="chip-body">V₂ (locked data) trains a generative model; synthetic V₁ carries the statistical signal without the sensitive rows.</div>
+          </div>
+          <div class="solution-chip">
+            <div class="chip-title">Data Trusts</div>
+            <div class="chip-body">Neutral governance body holds V, grants query access. Stakeholder priors updated via demonstrated governance, not promises.</div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  document.getElementById('detail-inner').innerHTML = `
     <div class="detail-header">
-      <div class="detail-title">${isEp ? s.eLabel : s.cLabel}</div>
-      <div class="detail-tag ${isEp ? 'tag-epistemic' : 'tag-cognitive'}">${isEp ? s.eTag : s.cTag}</div>
-      <div class="detail-tag ${isEp ? 'tag-cognitive' : 'tag-epistemic'}" style="opacity:.6">${isEp ? s.cTag : s.eTag}</div>
+      <div class="detail-title">${title}</div>
+      <div class="tag ${tagCls}">${tag}</div>
+      <div class="tag ${altCls}" style="opacity:.5">${altTag}</div>
     </div>
-
-    <div class="detail-body">${isEp ? s.eDetail : s.cDetail}</div>
-
-    <div class="meta-grid">
+    <div class="detail-body">${detail}</div>
+    <div class="meta-strip">
       <div class="meta-card">
-        <div class="meta-label">${isEp ? 'Scientific' : 'Scientific'}</div>
-        <div class="meta-value">${isEp ? s.eSci : s.cSci}</div>
+        <div class="meta-label">Scientific</div>
+        <div class="meta-value">${sci}</div>
       </div>
       <div class="meta-card">
         <div class="meta-label">${isEp ? 'Mathematical' : 'Stack'}</div>
-        <div class="meta-value">${isEp ? s.eMath : s.cStack}</div>
+        <div class="meta-value">${techMath}</div>
       </div>
       <div class="meta-card">
         <div class="meta-label">Physics</div>
-        <div class="meta-value">${isEp ? s.ePhysics : s.cPhysics}</div>
+        <div class="meta-value">${physics}</div>
       </div>
     </div>
-
     <div class="callout-row">
       <div class="callout bayesian">
-        <strong>Bayesian:</strong> ${s.eBayesian}
+        <strong>Bayesian:</strong> ${s.eBayes}
       </div>
-      <div class="callout cognitive">
-        <strong>Cognitive (TMVES):</strong> ${s.cCognitive}
+      <div class="callout cog">
+        <strong>Cognitive (TMVES):</strong> ${s.cCog}
       </div>
     </div>
+    ${wallBlock}
   `;
 
+  // Re-trigger animation
+  const d = document.getElementById('detail');
   d.style.animation = 'none';
   d.offsetHeight;
   d.style.animation = '';
 }
 
-function render() {
-  buildPipeline('epistemic-pipeline', 'eShort', 'eTag', 'epistemic');
-  buildPipeline('cognitive-pipeline',  'cShort', 'cTag', 'cognitive');
-  buildBridge();
-  buildDetail();
+function buildChains() {
+  function renderChain(id, items, cls) {
+    const el = document.getElementById(id);
+    el.className = `chain ${cls}`;
+    el.innerHTML = items.map((item, i) => {
+      const isActive = i === active;
+      const wallCls = item.wall ? ' wall-step' : '';
+      const activeCls = isActive ? ' active-step' : '';
+      const arrow = i < items.length - 1
+        ? `<div class="chain-arrow${item.wall ? ' wall-arrow' : ''}">↓</div>`
+        : '';
+      return `
+        <div class="chain-step${wallCls}${activeCls}" onclick="selectChain(${i},'${cls}')">
+          <div class="chain-key">${item.key}</div>
+          <div class="chain-label">${item.label}<span class="chain-sub">${item.sub}</span></div>
+        </div>
+        ${arrow}`;
+    }).join('');
+  }
+
+  renderChain('ep-chain', epChain, 'ep');
+  renderChain('co-chain', coChain, 'co');
 }
 
 function select(i, row) {
   active = i;
   primaryRow = row;
   render();
+}
+
+function selectChain(i, cls) {
+  active = i;
+  primaryRow = cls;
+  render();
+}
+
+function render() {
+  buildTrack('ep-track', 'eShort', 'eTag', 'ep');
+  buildTrack('co-track', 'cShort', 'cTag', 'co');
+  buildBridge();
+  buildDetail();
+  buildChains();
 }
 
 render();
